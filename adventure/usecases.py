@@ -40,4 +40,6 @@ class StopJourney:
         return self
 
     def execute(self, end) -> None:
+        # it takes a started journey as a parameter and sets an "end" value
+        # then saves it to the database
         return self.repository.stop_journey(self.journey, end)

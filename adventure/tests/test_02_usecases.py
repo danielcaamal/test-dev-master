@@ -54,9 +54,6 @@ class TestStartJourney:
 
 class TestStopJourney:
     def test_stop(self):
-        # TODO: Implement a StopJourney Usecase
-        # it takes a started journey as a parameter and sets an "end" value
-        # then saves it to the database
         repo = MockJourneyRepository()
         notifier = MockNotifier()
         data = {"name": "Kitt", "passengers": 2}
@@ -65,4 +62,4 @@ class TestStopJourney:
         end = timezone.now().date()
         journey = usecases.StopJourney(repo, notifier).set_params(journey).execute(end)
         
-        assert journey.vehicle.name == "Kitt"
+        assert journey.end == end

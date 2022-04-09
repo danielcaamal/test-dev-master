@@ -41,6 +41,13 @@ class Vehicle(models.Model):
             else:
                 distribution.append([True, True])
         return distribution
+    
+    @staticmethod
+    def validate_number_plate(number_plate: str) -> bool:
+    # a valid number plate consists of three pairs of alphanumeric chars separated by hyphen
+    # the first pair must be letters and the rest must be numbers
+    # e.g: AA-12-34
+        return re.match(r'^[A-Za-z]{2}-[0-9]{2}-[0-9]{2}$', number_plate) is not None
 
 
 class Journey(models.Model):
@@ -55,8 +62,3 @@ class Journey(models.Model):
         return bool(self.end)
 
     
-def validate_number_plate(number_plate: str) -> bool:
-    # a valid number plate consists of three pairs of alphanumeric chars separated by hyphen
-    # the first pair must be letters and the rest must be numbers
-    # e.g: AA-12-34
-    return re.match(r'^[A-Za-z]{2}-[0-9]{2}-[0-9]{2}$', number_plate) is not None

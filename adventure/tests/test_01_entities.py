@@ -41,11 +41,11 @@ class TestVehicle:
         assert vehicle.get_distribution() == distribution_expected
 
     def test_valid_number_plate(self):
-        assert models.validate_number_plate("AA-12-34")
-        assert not models.validate_number_plate("AA-BB-34")
-        assert not models.validate_number_plate("12-34-56")
-        assert not models.validate_number_plate("AA1234")
-        assert not models.validate_number_plate("AA 12 34")
+        assert models.Vehicle.validate_number_plate("AA-12-34")
+        assert not models.Vehicle.validate_number_plate("AA-BB-34")
+        assert not models.Vehicle.validate_number_plate("12-34-56")
+        assert not models.Vehicle.validate_number_plate("AA1234")
+        assert not models.Vehicle.validate_number_plate("AA 12 34")
 
 
 class TestJourney:
