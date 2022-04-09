@@ -29,4 +29,10 @@ services:
 
   test:
     << : *base
-    command: pytest
+    command: pytest 
+    depends_on:
+      - web
+
+  # migration:
+  #   << : *base
+  #     command: python manage.py migrate --noinput

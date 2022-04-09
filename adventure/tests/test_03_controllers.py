@@ -71,9 +71,17 @@ class TestStartJourneyAPIView:
         assert response.status_code == 400
 
 
-@pytest.mark.skip  # Remove
 class TestStopJourneyAPIView:
-    def test_stop(self):
+    def test_stop(self, client, mocker):
         # TODO: Implement an endpoint that makes use of a StopJourney use case
         # and tests it
-        pass
+        mocker.patch.object(
+            views.StartJourneyAPIView,
+            "get_repository",
+            return_value=MockJourneyRepository(),
+        )
+
+        payload = {"name": "Kitt", "passengers": 2}
+        response = client.post("/api/adventure/start/", payload)
+
+        assert response.status_code == 201

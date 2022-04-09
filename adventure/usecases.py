@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+from django.utils import timezone
+
 from .notifiers import Notifier
 from .repositories import JourneyRepository
+from .models import Journey, Vehicle
+
 
 
 class StartJourney:
@@ -22,6 +26,18 @@ class StartJourney:
         journey = self.repository.create_journey(vehicle)
         self.notifier.send_notifications(journey)
         return journey
-
     class CantStart(Exception):
         pass
+    
+class StopJourney:
+    def __init__(self, repository: JourneyRepository, notifier: Notifier):
+        self.repository = repository
+        self.notifier = notifier
+        self.journey = None
+    
+    def set_params(self, journey: Journey) -> StopJourney:
+        self.journey = journey
+        return self
+
+    def execute(self, end) -> None:
+        return self.repository.stop_journey(self.journey, end)
